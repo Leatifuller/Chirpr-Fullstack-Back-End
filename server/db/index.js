@@ -14,9 +14,14 @@ export const Connection=mysql.createConnection({
 
 export const Query= (query,values)=>{
     return new Promise ((resolve,reject)=>{
-        Connection.query(query,values,(err,res)=>{
-            if (err) return reject(err)
-            resolve(res)
+        Connection.query(query,values,(err,results)=>{
+            if (err) throw err;
+            resolve(results);
         })
     })
+}
+import chirps from './chirps';
+ // this becomes db object in routes/chirps.js
+export default {
+    chirps
 }

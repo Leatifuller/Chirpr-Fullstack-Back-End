@@ -1,8 +1,21 @@
-import * as mysql from 'mysql';
 import {Query} from './index.js';
 import db from './db';
 
-const all = async ()=> Query('SELECT * from chirps')
-const one =async ()=>  Query('SELECT * from chirps WHERE id=?', [id]);
+const all = () => Query("select * from chirps");
 
-export default {all,one};
+const one = (id) => Query("select * from chirps where chirps.id = ?", [id]);
+
+const destroy = (id) => Query("delete from chirps where chirps.id = ?", [id]);
+
+const insert = (userid, content, location) => Query("insert into chirps (userid, content, location) values (?, ?, ?)", [userid, content, location]);
+
+const edit = (id, content) => Query("UPDATE chirps SET content = ? WHERE chirps.id = ?", [content, id])
+
+// this becomes chirps in db/index.js and routes/chirps.js
+export default {
+    all,
+    one,
+    destroy,
+    insert,
+    edit
+}
